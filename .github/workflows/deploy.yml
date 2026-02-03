@@ -1,0 +1,19 @@
+name: Deploy ML API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Trigger Render Deployment
+      run: |
+        curl -X POST https://api.render.com/v1/services/srv-d612up94tr6s73b0ob70/deploys \
+        -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}"
